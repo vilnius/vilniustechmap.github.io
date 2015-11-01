@@ -1,0 +1,35 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.29411,
+          54.71081
+        ]
+      },
+      "properties": {
+        "description": "HUB Vilnius",
+        "color": "blue",
+        "icon": "building"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.28791,
+          54.68579
+        ]
+      },
+      "properties": {
+        "description": "Katedra",
+        "color": "red",
+        "icon": "money"
+      }
+    }
+  ]
+}
