@@ -1,0 +1,68 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.1829323,
+          54.6434435
+        ]
+      },
+      "properties": {
+        "title": "Ferentis",
+        "address": "Savanoriu str. 231, LT-02300",
+        "contactPerson": "Vygandas Jūras",
+        "contactPhone": "8 686 55002",
+        "contactEmail": "info@ferentis.eu",
+        "pictureUrl": "http://www.ferentis.eu/uploads/skin/st_119.png",
+        "websiteUrl": "http://www.ferentis.eu/",
+        "color": "blue",
+        "icon": "building"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.337885,
+          54.723352
+        ]
+      },
+      "properties": {
+        "title": "Bioseka",
+        "address": "Sauletekio al. 15, LT-10224",
+        "contactPerson": "Eglė Kybartienė",
+        "contactPhone": "8 611 35509",
+        "contactEmail": "info@bioseka.eu",
+        "pictureUrl": "http://www.bioseka.eu/uploads/1/0/7/4/10744518/1378562879.png",
+        "websiteUrl": "http://www.bioseka.eu/",
+        "color": "red",
+        "icon": "money"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          25.286889,
+          54.711834
+        ]
+      },
+      "properties": {
+        "title": "Ato ID",
+        "address": "Kalvariju str. 125B, LT-08221",
+        "contactPerson": "Indrė Aleknavičienė",
+        "contactPhone": "8 616 83149",
+        "contactEmail": "info@atoid.com",
+        "pictureUrl": "http://www.startuplithuania.lt/uploads/files/startups/s_0_19488300_1432887979.png",
+        "websiteUrl": "http://www.atoid.com/",
+        "color": "red",
+        "icon": "money"
+      }
+    }
+  ]
+}

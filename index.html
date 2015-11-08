@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="techMapApp">
 <head>
     <meta charset="utf-8">
 
@@ -20,91 +20,83 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+          integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+          crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans"/>
+
     <!--[if lt IE 9]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
 </head>
 
-<body>
-<div id="map"></div>
+<body ng-controller="TechMapController">
+
+<div id="layout">
+    <div id="menu" ng-controller="TechMapSideMenuController">
+        <div ng-if="!selectedObject">
+            <h1 class="text-center main-title">TechMap Vilnius</h1>
+            <h2>Choose object on the map to start!</h2>
+        </div>
+        <div ng-if="selectedObject" ng-cloak>
+
+            <div class="container-fluid">
+                <div class="picture-container">
+                    <img class="main-picture" ng-src="{{selectedObject.pictureUrl}}">
+                </div>
+
+                <div class="object-title text-center">
+                    <h1>{{selectedObject.title}}</h1>
+                </div>
+
+                <table class="table object-data-table">
+                    <tr>
+                        <td>Address</td>
+                        <td>{{selectedObject.address}}</td>
+                    </tr>
+                    <tr>
+                        <td>Contact person</td>
+                        <td>{{selectedObject.contactPerson}}</td>
+                    </tr>
+                    <tr>
+                        <td>Phone</td>
+                        <td>{{selectedObject.contactPhone}}</td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>{{selectedObject.contactEmail}}</td>
+                    </tr>
+                </table>
+
+                <div class="object-website-url text-center">
+                    <a class="btn btn-primary btn-lg"
+                       ng-href="{{selectedObject.websiteUrl}}"
+                       target="_blank">Open Website</a>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div id="map" ng-controller="TechMapLayerController"></div>
+</div>
+
+
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
 <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+
+
 <script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
 
 <script src="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
 
-<script>
-    var mapBoxTile = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ', {
-        maxZoom: 18,
-        attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-        id: 'mapbox.streets'
-    });
-
-    var cloudMatTile = L.tileLayer('http://{s}.tile.cloudmade.com/{key}/22677/256/{z}/{x}/{y}.png', {
-        attribution: 'Map data &copy; 2011 OpenStreetMap contributors, Imagery &copy; 2011 CloudMade. Font Awesome by Dave Gandy',
-        key: 'BC9A493B41014CAABB98F0471D759707',
-        detectRetina: true
-    });
-
-    var openStreetMapTile = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors, Points &copy 2012 LINZ'
-    });
-
-    var center = L.latLng(54.68547, 25.28739);
-    var map = L.map('map', {
-        center: center, zoom: 13, layers: [
-//        openStreetMapTile,
-            mapBoxTile,
-//            cloudMatTile,
-        ]
-    });
-
-    var markers = L.markerClusterGroup();
-
-    L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa';
-
-    $.getJSON("locations.json", function (data) {
-        L.geoJson(data, {
-            style: function (feature) {
-                return {color: feature.properties.color};
-            },
-            onEachFeature: function (feature, layer) {
-                console.log(feature.properties.description);
-                var title = feature.properties.description;
-                layer.bindPopup(title);
-                markers.addLayer(layer);
-            },
-            pointToLayer: function (feature, latlng) {
-                var redMarker = L.AwesomeMarkers.icon({
-                    icon: feature.properties.icon,
-                    markerColor: feature.properties.color
-                });
-
-                return L.marker(latlng, {icon: redMarker});
-            }
-        }).addTo(map);
-    });
-
-
-    map.addLayer(markers);
-
-    var popup = L.popup();
-
-    function onMapClick(e) {
-        popup.setLatLng(e.latlng)
-                .setContent("You clicked the map at " + e.latlng.toString())
-                .openOn(map);
-    }
-
-    map.on('click', onMapClick);
-
-
-</script>
+<script src="js/techmap.js"></script>
 </body>
 </html>
