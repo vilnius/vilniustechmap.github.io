@@ -43,9 +43,77 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
     var markers = L.markerClusterGroup();
 
     L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa';
+//https://spreadsheets.google.com/feeds/list/1En1sAwGfvG8E8ruXShJfDviaBk5_n6nQPyY6rBymdPc/od6/public/basic?alt=json published url
+    $.getJSON("https://spreadsheets.google.com/feeds/list/1En1sAwGfvG8E8ruXShJfDviaBk5_n6nQPyY6rBymdPc/od6/public/basic?alt=json", function (data) {
 
-    $.getJSON("data/geodata1.json", function (data) {
-        L.geoJson(data, {
+        function convertData() {
+            var feedEntries = data.feed.entry;
+            var features = [];
+
+            function transformEntry(jsonEntry) {
+                var currentPropertiesText = jsonEntry['content']['$t'];
+
+                var propsArray = currentPropertiesText.split(", ");
+                var props = {};
+
+                for (var i = 0; i < propsArray.length; i++) {
+                    var propPart = propsArray[i];
+                    var nameCutIndex = propPart.indexOf(": ");
+                    var propName = propPart.substring(0, nameCutIndex);
+                    var propValue = propPart.substring(nameCutIndex + 2);
+
+                    props[propName] = propValue;
+                }
+
+                if (!props['longitude'] || !props['latitude']) {
+                    return false;
+                }
+
+                props['longitude'] = parseFloat(props['longitude'].replace(",","."));
+                props['latitude'] = parseFloat(props['latitude'].replace(",","."));
+
+                return {
+                    "type": "Feature",
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [
+                            props['longitude'],
+                            props['latitude']
+                        ]
+                    },
+                    "properties": {
+                        "title": jsonEntry['title']['$t'],
+                        "address": props['address'],
+                        "contactPerson": props['contactperson'],
+                        "contactPhone": props['contactphone'],
+                        "contactEmail": props['contactemail'],
+                        "pictureUrl": props['logolink'],
+                        "websiteUrl": props['website'],
+                        "color": "blue",
+                        "icon": "building"
+                    }
+                };
+            }
+
+            for (var i = 0; i < feedEntries.length; i++) {
+                var geoEntry = transformEntry(feedEntries[i]);
+                if (!geoEntry) {
+                    continue;
+                }
+                features.push(geoEntry);
+            }
+
+            return {
+                "type": "FeatureCollection",
+                "features": features
+            }
+        }
+
+        var geoJsonTransformed = convertData();
+
+        console.log(geoJsonTransformed);
+
+        L.geoJson(geoJsonTransformed, {
             style: function (feature) {
                 return {color: feature.properties.color};
             },
