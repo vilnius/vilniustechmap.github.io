@@ -89,6 +89,7 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
                         "contactEmail": props['contactemail'],
                         "pictureUrl": props['logolink'],
                         "websiteUrl": props['website'],
+                        "revenues": props['revenues'],
                         "color": "blue",
                         "icon": "building"
                     }
