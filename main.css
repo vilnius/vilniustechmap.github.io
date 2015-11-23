@@ -30,12 +30,17 @@ html, body {
 }
 
 #menu img.main-picture {
-    width: 100%;
 }
 
 #menu .picture-container {
     margin: 1em;
-    height: 100px;
+    text-align: center;
+}
+
+#menu .picture-container img {
+    max-height: 100px;
+    width: auto;
+    max-width: 100%;
 }
 
 #menu .object-title {
