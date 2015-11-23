@@ -35,7 +35,9 @@
 <body ng-controller="TechMapController">
 
 <div id="layout">
+    
     <div id="menu" ng-controller="TechMapSideMenuController">
+        <div class="topbar">Techmap logo</div>
         <div ng-if="!selectedObject">
             <h1 class="text-center main-title">TechMap Vilnius</h1>
             <h2>Choose object on the map to start!</h2>
@@ -67,6 +69,10 @@
                     <tr>
                         <td>Email</td>
                         <td>{{selectedObject.contactEmail}}</td>
+                    </tr>
+                    <tr ng-show="selectedObject.revenues">
+                        <td>Revenues</td>
+                        <td>{{selectedObject.revenues}}</td>
                     </tr>
                 </table>
 
