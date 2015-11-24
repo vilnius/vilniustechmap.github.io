@@ -1,0 +1,51 @@
+---
+---
+
+html, body {
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    font-family: "Open Sans", sans-serif !important;;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+#layout {
+    height: 100%;
+}
+
+#map {
+    height: 100%;
+}
+
+#menu {
+    float: left;
+    width: 300px;
+    height: 100%;
+    background-color: #eeeeee;
+    padding: 1.5em;
+
+    .main-title {
+        margin: 60px 0 120px 0;
+    }
+
+    .picture-container {
+        margin: 1em;
+        text-align: center;
+        
+        img {
+            max-height: 100px;
+            width: auto;
+            max-width: 100%;
+        }
+        
+        img.main-picture {
+        }
+    }
+    
+    .object-data-table {
+        margin: 60px 0px 60px 0px;
+    }
+}
