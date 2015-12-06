@@ -21,16 +21,16 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
     var center = L.latLng(54.68547, 25.28739);
     var map = L.map('map', {
         center: center, zoom: 12, layers: [
-//        openStreetMapTile,
+        //        openStreetMapTile,
             mapBoxTile,
-//            cloudMatTile,
+            //            cloudMatTile,
         ]
     });
 
     var markers = L.markerClusterGroup();
 
     L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa';
-//https://spreadsheets.google.com/feeds/list/1En1sAwGfvG8E8ruXShJfDviaBk5_n6nQPyY6rBymdPc/od6/public/basic?alt=json published url
+    //https://spreadsheets.google.com/feeds/list/1En1sAwGfvG8E8ruXShJfDviaBk5_n6nQPyY6rBymdPc/od6/public/basic?alt=json published url
     $.getJSON("https://spreadsheets.google.com/feeds/list/1En1sAwGfvG8E8ruXShJfDviaBk5_n6nQPyY6rBymdPc/od6/public/basic?alt=json", function (data) {
 
 
@@ -40,21 +40,44 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
 
         L.geoJson(geoJsonTransformed, {
             style: function (feature) {
-                return {color: feature.properties.color};
+                return { color: feature.properties.color };
             },
             onEachFeature: function (feature, layer) {
                 console.log(feature.properties.title);
                 markers.addLayer(layer);
             },
             pointToLayer: function (feature, latlng) {
+
                 var awesomeMarker = L.AwesomeMarkers.icon({
                     icon: feature.properties.icon,
                     markerColor: feature.properties.color
                 });
 
-                var marker = L.marker(latlng, {icon: awesomeMarker});
+                var awesomeMarkeSelected = L.AwesomeMarkers.icon({
+                    icon: feature.properties.icon,
+                    markerColor: 'red'
+                });
+
+                var marker = L.marker(latlng, { icon: awesomeMarker });
+                marker.selected = false;
+
+                $rootScope.$on('MarkerSelectedEvent', function (event, featureReceived) {
+                    if(feature.properties.title == featureReceived.properties.title) {
+                        console.log("Return");
+                        return;
+                    }
+                    marker.selected = false;
+                    marker.setIcon(awesomeMarker);
+                });
+
                 marker.on('click', function () {
+                    marker.selected = !marker.selected;
                     $rootScope.$broadcast('MarkerSelectedEvent', feature);
+                    if (marker.selected) {
+                        marker.setIcon(awesomeMarkeSelected);
+                    } else {
+                        marker.setIcon(awesomeMarker);
+                    }
                 });
 
                 return marker;

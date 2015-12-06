@@ -6,7 +6,11 @@ techMapApp.controller('TechMapController', function ($scope) {
 techMapApp.controller('TechMapSideMenuController', function ($scope, $rootScope) {
     $scope.$on('MarkerSelectedEvent', function (event, feature) {
         console.log(feature);
-        $scope.selectedObject = feature.properties;
+        if ($scope.selectedObject == feature.properties) {
+            $scope.selectedObject = null;
+        } else {
+            $scope.selectedObject = feature.properties;
+        }
         $scope.$apply();
     });
 });
