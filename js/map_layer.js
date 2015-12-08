@@ -44,6 +44,17 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
             },
             onEachFeature: function (feature, layer) {
                 console.log(feature.properties.title);
+                var popupText = "";
+				if (feature.properties.color) {
+					popupText += feature.properties.title;
+				}
+				layer.bindPopup(popupText);
+                layer.on('mouseover', function (e) {
+                    this.openPopup();
+                });
+                layer.on('mouseout', function (e) {
+                    // this.closePopup(); Works nicer without this
+                });
             },
             pointToLayer: function (feature, latlng) {
 
