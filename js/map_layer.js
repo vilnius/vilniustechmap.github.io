@@ -38,13 +38,12 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
 
         console.log(geoJsonTransformed);
 
-        L.geoJson(geoJsonTransformed, {
+        var geoJsonLayer = L.geoJson(geoJsonTransformed, {
             style: function (feature) {
                 return { color: feature.properties.color };
             },
             onEachFeature: function (feature, layer) {
                 console.log(feature.properties.title);
-                markers.addLayer(layer);
             },
             pointToLayer: function (feature, latlng) {
 
@@ -82,7 +81,11 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
 
                 return marker;
             }
-        }).addTo(map);
+        });
+        
+        
+        markers.addLayer(geoJsonLayer);
+        map.addLayer(markers);
     });
 
 
