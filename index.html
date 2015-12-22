@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en" ng-app="techMapApp">
+
 <head>
     <meta charset="utf-8">
 
@@ -9,11 +10,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css"/>
-    <link rel="stylesheet" href="css/main.css"/>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+    <link rel="stylesheet" href="css/main.css" />
 
-    <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.css"/>
-    <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css"/>
+    <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css" />
 
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
     <link rel="stylesheet" href="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css">
@@ -21,12 +22,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
-          integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
-          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+    crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:400,300,700"/>
-    
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:400,300,700" />
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <!--[if lt IE 9]>
@@ -36,65 +36,83 @@
 
 <body ng-controller="TechMapController">
 
-<div id="layout">
+    <div id="layout">
 
-    <div id="menu" ng-controller="TechMapSideMenuController">
-        <div ng-if="!selectedObject">
-            <h1 class="text-center main-title">TechMap Vilnius</h1>
-            <h2>Choose object on the map to start!</h2>
-        </div>
-        <div ng-if="selectedObject" ng-cloak>
-            <div class="picture-container">
-                <img class="main-picture" ng-src="{{selectedObject.pictureUrl}}">
-            </div>
-            
-            <div class="data-container">
-                <h1>{{selectedObject.title}}</h1>
-                <p class="address"><i class="fa fa-location-arrow"></i> {{selectedObject.address}}</p>
+        <div id="menu" ng-controller="TechMapSideMenuController">
+            <div ng-if="!selectedObject" ng-controller="TechMapSummaryController">
+                <h1 class="text-center main-title"><i class="fa fa-map-o"></i> TechMap Vilnius</h1>
+
+                <small class="subtitle">Choose object on the map to start!</small>
                 
-                <ul class="object-data">
-                    <li>
-                        <i class="fa fa-user"></i> {{selectedObject.contactPerson}}
-                    </li>
-                    <li>
-                        <i class="fa fa-phone"></i> {{selectedObject.contactPhone}}
-                    </li>
-                    <li>
-                        <i class="fa fa-envelope"></i> <a href="mailto:{{selectedObject.contactEmail}}">{{selectedObject.contactEmail}}</a>
-                    </li>
-                    <li>
-                        <i class="fa fa-link"></i> <a href="{{selectedObject.websiteUrl}}" target="_blank">{{selectedObject.websiteUrl}}</a>
-                    </li>
-                </ul>
-                
-                <ul class="object-data">
-                    <li ng-show="selectedObject.revenues">
-                        <label>Revenues</label>
-                        <p>{{selectedObject.revenues}}</p>
-                    </li>
-                </ul>
+                <div class="summary-box" ng-cloak>
+                    <div class="summary-entry">
+                        <h4 class="summary-label">Revenues</h4>
+                        <h1 class="summary-number summary-number-currency">{{summary.revenues}}</h1>
+                    </div>
+                    <div class="summary-entry">
+                        <h4 class="summary-label">Employees</h4>
+                        <h1 class="summary-number">{{summary.employees}}</h1>
+                    </div>
+                    <div class="summary-entry">
+                        <h4 class="summary-label">Funding raised</h4>
+                        <h1 class="summary-number summary-number-currency">{{summary.funding}}</h1>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="selectedObject" ng-cloak>
+                <div class="picture-container">
+                    <img class="main-picture" ng-src="{{selectedObject.pictureUrl}}">
+                </div>
+
+                <div class="data-container">
+                    <h1>{{selectedObject.title}}</h1>
+                    <p class="address"><i class="fa fa-location-arrow"></i> {{selectedObject.address}}</p>
+
+                    <ul class="object-data">
+                        <li>
+                            <i class="fa fa-user"></i> {{selectedObject.contactPerson}}
+                        </li>
+                        <li>
+                            <i class="fa fa-phone"></i> {{selectedObject.contactPhone}}
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope"></i> <a href="mailto:{{selectedObject.contactEmail}}">{{selectedObject.contactEmail}}</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-link"></i> <a href="{{selectedObject.websiteUrl}}" target="_blank">{{selectedObject.websiteUrl}}</a>
+                        </li>
+                    </ul>
+
+                    <ul class="object-data">
+                        <li ng-show="selectedObject.revenues">
+                            <label>Revenues</label>
+                            <p>{{selectedObject.revenues}}</p>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
+
+        <div id="map" ng-controller="TechMapLayerController"></div>
     </div>
 
-    <div id="map" ng-controller="TechMapLayerController"></div>
-</div>
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+    <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
 
 
-<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
 
-<script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
+    <script src="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
-
-
-<script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
-
-<script src="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
-
-<script src="js/techmap.js"></script>
-<script src="js/data_converter.js"></script>
-<script src="js/map_layer.js"></script>
+    <script src="js/techmap.js"></script>
+    <script src="js/data_converter.js"></script>
+    <script src="js/map_layer.js"></script>
 </body>
+
 </html>

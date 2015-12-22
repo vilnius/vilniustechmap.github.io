@@ -35,6 +35,7 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
 
 
         var geoJsonTransformed = convertDataFromGoogleSpreadsheetsJson(data);
+        $rootScope.$broadcast('DataAvailable', geoJsonTransformed);
 
         console.log(geoJsonTransformed);
 

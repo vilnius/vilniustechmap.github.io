@@ -42,6 +42,8 @@ function convertDataFromGoogleSpreadsheetsJson(data) {
                 "pictureUrl": props['logolink'],
                 "websiteUrl": props['website'],
                 "revenues": props['revenues'],
+                "headcount": props['headcount'],
+                "fundingraised": props['fundingraised'],
                 "color": "blue",
                 "icon": "building"
             }
