@@ -1,4 +1,5 @@
 techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
+
     var mapBoxTile = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ', {
         maxZoom: 18,
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
@@ -27,29 +28,42 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
         ]
     });
 
-    var markers = L.markerClusterGroup();
-
     L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa';
     //https://spreadsheets.google.com/feeds/list/1En1sAwGfvG8E8ruXShJfDviaBk5_n6nQPyY6rBymdPc/od6/public/basic?alt=json published url
     $.getJSON("https://spreadsheets.google.com/feeds/list/1En1sAwGfvG8E8ruXShJfDviaBk5_n6nQPyY6rBymdPc/od6/public/basic?alt=json", function (data) {
-
-
         var geoJsonTransformed = convertDataFromGoogleSpreadsheetsJson(data);
         $rootScope.$broadcast('DataAvailable', geoJsonTransformed);
 
         console.log(geoJsonTransformed);
+    });
 
-        var geoJsonLayer = L.geoJson(geoJsonTransformed, {
+    var lastMarkerSet = null;
+
+    $rootScope.$on('DataAvailable', function (event, data) {
+        $rootScope.$broadcast('EntrySetAvailable', data);
+    });
+
+    $rootScope.$on('EntrySetAvailable', function (event, data) {
+        console.log("New data available");
+        
+        if (lastMarkerSet != null) {
+            map.removeLayer(lastMarkerSet);
+        }
+
+        var markers = L.markerClusterGroup();
+        lastMarkerSet = markers;
+
+        var geoJsonLayer = L.geoJson(data, {
             style: function (feature) {
                 return { color: feature.properties.color };
             },
             onEachFeature: function (feature, layer) {
                 console.log(feature.properties.title);
                 var popupText = "";
-				if (feature.properties.color) {
-					popupText += feature.properties.title;
-				}
-				layer.bindPopup(popupText);
+                if (feature.properties.color) {
+                    popupText += feature.properties.title;
+                }
+                layer.bindPopup(popupText);
                 layer.on('mouseover', function (e) {
                     this.openPopup();
                 });
@@ -73,7 +87,7 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
                 marker.selected = false;
 
                 $rootScope.$on('MarkerSelectedEvent', function (event, featureReceived) {
-                    if(feature.properties.title == featureReceived.properties.title) {
+                    if (feature.properties.title == featureReceived.properties.title) {
                         console.log("Return");
                         return;
                     }
@@ -94,14 +108,10 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
                 return marker;
             }
         });
-        
-        
+
         markers.addLayer(geoJsonLayer);
         map.addLayer(markers);
     });
-
-
-    map.addLayer(markers);
 });
 
 

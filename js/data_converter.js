@@ -44,6 +44,7 @@ function convertDataFromGoogleSpreadsheetsJson(data) {
                 "revenues": props['revenues'],
                 "headcount": props['headcount'],
                 "fundingraised": props['fundingraised'],
+                "industrycategorytype": props['industrycategorytype'],
                 "color": "blue",
                 "icon": "building"
             }
@@ -53,6 +54,7 @@ function convertDataFromGoogleSpreadsheetsJson(data) {
     for (var i = 0; i < feedEntries.length; i++) {
         var geoEntry = transformEntry(feedEntries[i]);
         if (!geoEntry) {
+            console.log("Skipping ", feedEntries[i]);
             continue;
         }
         features.push(geoEntry);

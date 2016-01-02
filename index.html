@@ -39,11 +39,23 @@
     <div id="layout">
 
         <div id="menu" ng-controller="TechMapSideMenuController">
-            <div ng-if="!selectedObject" ng-controller="TechMapSummaryController">
+            <div ng-show="!selectedObject" ng-controller="TechMapFilterController" ng-cloak>
+                <form class="company-filter">
+                    <div class="form-group form-group-lg">
+                        <label for="category" class="control-label">Category filter</label>
+                        <select class="form-control" name="category" id="category" ng-model="filter.category">
+                            <option value=""></option>
+                            <option ng-repeat="option in categories" value="{{option.name}}">{{option.name}}</option>
+                        </select>
+                    </div>
+
+                </form>
+            </div>
+            <div ng-show="!selectedObject" ng-controller="TechMapSummaryController">
                 <h1 class="text-center main-title"><i class="fa fa-map-o"></i> TechMap Vilnius</h1>
 
                 <small class="subtitle">Choose object on the map to start!</small>
-                
+
                 <div class="summary-box" ng-cloak>
                     <div class="summary-entry">
                         <h4 class="summary-label">Revenues</h4>
@@ -59,7 +71,7 @@
                     </div>
                 </div>
             </div>
-            <div ng-if="selectedObject" ng-cloak>
+            <div ng-show="selectedObject" ng-cloak>
                 <div class="picture-container">
                     <img class="main-picture" ng-src="{{selectedObject.pictureUrl}}">
                 </div>
