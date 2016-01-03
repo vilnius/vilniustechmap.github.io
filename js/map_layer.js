@@ -31,19 +31,19 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
     L.AwesomeMarkers.Icon.prototype.options.prefix = 'fa';
     //https://spreadsheets.google.com/feeds/list/1En1sAwGfvG8E8ruXShJfDviaBk5_n6nQPyY6rBymdPc/od6/public/basic?alt=json published url
     $.getJSON("https://spreadsheets.google.com/feeds/list/1En1sAwGfvG8E8ruXShJfDviaBk5_n6nQPyY6rBymdPc/od6/public/basic?alt=json", function (data) {
-        var geoJsonTransformed = convertDataFromGoogleSpreadsheetsJson(data);
-        $rootScope.$broadcast('DataAvailable', geoJsonTransformed);
+        var features = convertDataFromGoogleSpreadsheetsJson(data);
+        $rootScope.$broadcast('DataAvailable', features);
 
-        console.log(geoJsonTransformed);
+        console.log(features);
     });
 
     var lastMarkerSet = null;
 
-    $rootScope.$on('DataAvailable', function (event, data) {
-        $rootScope.$broadcast('EntrySetAvailable', data);
+    $rootScope.$on('DataAvailable', function (event, features) {
+        $rootScope.$broadcast('EntrySetAvailable', features);
     });
 
-    $rootScope.$on('EntrySetAvailable', function (event, data) {
+    $rootScope.$on('EntrySetAvailable', function (event, features) {
         console.log("New data available");
         
         if (lastMarkerSet != null) {
@@ -52,6 +52,11 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
 
         var markers = L.markerClusterGroup();
         lastMarkerSet = markers;
+        
+        var data = {
+            "type": "FeatureCollection",
+            "features": features
+        };
 
         var geoJsonLayer = L.geoJson(data, {
             style: function (feature) {

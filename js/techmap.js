@@ -8,12 +8,12 @@ techMapApp.controller('TechMapFilterController', function ($scope, $rootScope) {
     var filters = {};
     $scope.filter = filters;
 
-    var fullInitialData = null;
+    var fullInitialFeatures = null;
 
-    $scope.$on('DataAvailable', function (event, data) {
-        fullInitialData = data;
+    $scope.$on('DataAvailable', function (event, features) {
+        fullInitialFeatures = features;
         var foundCategories = [];
-        _.each(data.features, function (feature) {
+        _.each(features, function (feature) {
             var categories = feature.properties.industrycategorytype;
 
             categories = categories.split(",");
@@ -21,7 +21,7 @@ techMapApp.controller('TechMapFilterController', function ($scope, $rootScope) {
             _.each(categories, function (element) {
                 var category = {
                     id: '',
-                    name: element
+                    name: element.trim()
                 };
                 foundCategories.push(category);
             });
@@ -36,7 +36,10 @@ techMapApp.controller('TechMapFilterController', function ($scope, $rootScope) {
             return category.name;
         });
 
-        console.log(foundCategories);
+        console.log(_.map(foundCategories, function(category) {
+            return category.name;
+        }).join("\n"));
+        
         $scope.categories = foundCategories;
         $scope.$apply();
     });
@@ -44,11 +47,11 @@ techMapApp.controller('TechMapFilterController', function ($scope, $rootScope) {
     $scope.$watch('filter.category', function (newValue, oldValue) {
         console.log(newValue);
 
-        if (fullInitialData == null) {
+        if (fullInitialFeatures == null) {
             return;
         }
 
-        var features = _.filter(fullInitialData.features, function (feature) {
+        var features = _.filter(fullInitialFeatures, function (feature) {
             if (_.isEmpty(newValue)) {
                 return true;
             }
@@ -56,19 +59,15 @@ techMapApp.controller('TechMapFilterController', function ($scope, $rootScope) {
             return feature.properties.industrycategorytype.indexOf(newValue) >= 0;
         });
 
-        $rootScope.$broadcast('EntrySetAvailable',
-            {
-                "type": "FeatureCollection",
-                "features": features
-            });
+        $rootScope.$broadcast('EntrySetAvailable', features);
     });
 });
 
 techMapApp.controller('TechMapSummaryController', function ($scope, $rootScope, $timeout) {
 
-    $scope.$on('EntrySetAvailable', function (event, data) {
+    $scope.$on('EntrySetAvailable', function (event, features) {
 
-        var revenuesSum = _.reduce(data.features, function (memo, feature) {
+        var revenuesSum = _.reduce(features, function (memo, feature) {
             var number = feature.properties.revenues;
             if (!number) {
                 number = "0";
@@ -83,7 +82,7 @@ techMapApp.controller('TechMapSummaryController', function ($scope, $rootScope, 
             return memo + number;
         }, 0);
 
-        var employeesCount = _.reduce(data.features, function (memo, feature) {
+        var employeesCount = _.reduce(features, function (memo, feature) {
             var number = feature.properties.headcount;
             if (!number) {
                 number = "0";
@@ -96,7 +95,7 @@ techMapApp.controller('TechMapSummaryController', function ($scope, $rootScope, 
             return memo + number;
         }, 0);
 
-        var fundingSum = _.reduce(data.features, function (memo, feature) {
+        var fundingSum = _.reduce(features, function (memo, feature) {
             var number = feature.properties.fundingraised;
             if (!number) {
                 number = "0";

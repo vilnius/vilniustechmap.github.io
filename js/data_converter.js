@@ -5,20 +5,23 @@ function convertDataFromGoogleSpreadsheetsJson(data) {
     function transformEntry(jsonEntry) {
         var currentPropertiesText = jsonEntry['content']['$t'];
 
-        var propsArray = currentPropertiesText.split(", ");
+        // var propsArray = currentPropertiesText.split(", ");
+        var re = /(\w+): (.+?(?=(?:, \w+:|$)))/mgi;
+        var propsArray = re.exec(currentPropertiesText)
         var props = {};
-
-        for (var i = 0; i < propsArray.length; i++) {
-            var propPart = propsArray[i];
-            var nameCutIndex = propPart.indexOf(": ");
-            var propName = propPart.substring(0, nameCutIndex);
-            var propValue = propPart.substring(nameCutIndex + 2);
+        
+        while (propsArray != null) {
+            
+            var propName = propsArray[1];
+            var propValue = propsArray[2];
 
             props[propName] = propValue;
+            
+            propsArray = re.exec(currentPropertiesText);
         }
 
         if (!props['longitude'] || !props['latitude']) {
-            return false;
+            return null;
         }
 
         props['longitude'] = parseFloat(props['longitude'].replace(",", "."));
@@ -54,14 +57,11 @@ function convertDataFromGoogleSpreadsheetsJson(data) {
     for (var i = 0; i < feedEntries.length; i++) {
         var geoEntry = transformEntry(feedEntries[i]);
         if (!geoEntry) {
-            console.log("Skipping ", feedEntries[i]);
+            console.warn("Skipping ", feedEntries[i]);
             continue;
         }
         features.push(geoEntry);
     }
 
-    return {
-        "type": "FeatureCollection",
-        "features": features
-    }
+    return features;
 }
