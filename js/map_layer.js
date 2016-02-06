@@ -22,8 +22,8 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
     var center = L.latLng(54.68547, 25.28739);
     var map = L.map('map', {
         center: center, zoom: 12, layers: [
-        //        openStreetMapTile,
-            mapBoxTile,
+               openStreetMapTile,
+            // mapBoxTile,
             //            cloudMatTile,
         ]
     });
