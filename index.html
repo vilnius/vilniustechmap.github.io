@@ -9,6 +9,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
     <link rel="stylesheet" href="css/main.css" />
@@ -35,6 +36,48 @@
 </head>
 
 <body ng-controller="TechMapController">
+    
+    <div class="modal show modeless" id="myModal" ng-controller="TechMapStartUpOfTheDayController" data-backdrop="false" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" onclick="HydeContent()" class="close">^</button>
+        <h4 class="modal-title" id="myModalLabel">StartUp of the day!</h4>
+      </div>
+      <div class="modal-body">		  
+		<div ng-show="startUpOfTheDayObject" ng-cloak>
+                <div class="picture-container">
+                    <img class="main-picture" ng-src="{{startUpOfTheDayObject.pictureUrl}}">
+                </div>
+                <div class="data-container">
+                    <h1>{{startUpOfTheDayObject.title}}</h1>
+                    <p class="address"><i class="fa fa-location-arrow"></i> {{startUpOfTheDayObject.address}}</p>
+                    <ul class="object-data">
+                        <li>
+                            <i class="fa fa-user"></i> {{startUpOfTheDayObject.contactPerson}}
+                        </li>
+                        <li>
+                            <i class="fa fa-phone"></i> {{startUpOfTheDayObject.contactPhone}}
+                        </li>
+                        <li>
+                            <i class="fa fa-envelope"></i> <a href="mailto:{{startUpOfTheDayObject.contactEmail}}">{{startUpOfTheDayObject.contactEmail}}</a>
+                        </li>
+                        <li>
+                            <i class="fa fa-link"></i> <a href="{{startUpOfTheDayObject.websiteUrl}}" target="_blank">{{startUpOfTheDayObject.websiteUrl}}</a>
+                        </li>
+                    </ul>
+                    <ul class="object-data">
+                        <li ng-show="startUpOfTheDayObject.revenues">
+                            <label>Revenues</label>
+                            <p>{{startUpOfTheDayObject.revenues}}</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
 
     <div id="layout">
 
@@ -125,6 +168,14 @@
     <script src="js/techmap.js"></script>
     <script src="js/data_converter.js"></script>
     <script src="js/map_layer.js"></script>
+    
+    <script>
+       function HydeContent() { 	
+	      var element = document.getElementsByClassName('modal-body')[0];
+	      element.style.display = (element.style.display == 'none' ? 'block' : 'none');	
+        } 
+    </script>
+    
 </body>
 
 </html>
