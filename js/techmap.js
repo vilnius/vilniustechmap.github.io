@@ -137,3 +137,11 @@ techMapApp.controller('TechMapSideMenuController', function ($scope, $rootScope)
         $scope.$apply();
     });
 });
+
+techMapApp.controller('TechMapStartUpOfTheDayController', function ($scope, $rootScope) {
+    $.getJSON("https://spreadsheets.google.com/feeds/list/1En1sAwGfvG8E8ruXShJfDviaBk5_n6nQPyY6rBymdPc/od6/public/basic?alt=json", function (data) {
+        var features = convertDataFromGoogleSpreadsheetsJson(data);
+        var randomIndex = Math.floor(Math.random() * features.length);
+        $scope.startUpOfTheDayObject = features[randomIndex].properties;
+    });
+});
