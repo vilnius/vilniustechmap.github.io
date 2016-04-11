@@ -26,6 +26,11 @@ function convertDataFromGoogleSpreadsheetsJson(data) {
 
         props['longitude'] = parseFloat(props['longitude'].replace(",", "."));
         props['latitude'] = parseFloat(props['latitude'].replace(",", "."));
+        
+        if (props['website'].search("http") == -1)
+		{
+		  props['website'] = "http://" + props['website'];	
+		}
 
         return {
             "type": "Feature",
