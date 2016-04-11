@@ -27,12 +27,6 @@ function convertDataFromGoogleSpreadsheetsJson(data) {
         props['longitude'] = parseFloat(props['longitude'].replace(",", "."));
         props['latitude'] = parseFloat(props['latitude'].replace(",", "."));
         
-<<<<<<< HEAD
-        if (props['website'].search("http") == -1)
-		{
-		  props['website'] = "http://" + props['website'];	
-		}
-=======
         if (props['website'].search("http") == -1) {
 		  props['website'] = "http://" + props['website'];	
 		}
@@ -91,8 +85,6 @@ function convertDataFromGoogleSpreadsheetsJson(data) {
         props['fundingraised'] = fixFundingRaised();
         props['headcount'] = fixEmployeeCount();
         props['revenues'] = fixRevenues();
-        
->>>>>>> gh-pages
 
         return {
             "type": "Feature",
