@@ -69,45 +69,16 @@ techMapApp.controller('TechMapSummaryController', function ($scope, $rootScope, 
 
         var revenuesSum = _.reduce(features, function (memo, feature) {
             var number = feature.properties.revenues;
-            if (!number) {
-                number = "0";
-            }
-            if (number.indexOf('-') > 0) {
-                number = number.split('-');
-                number = number[0].trim()
-            }
-            number = number.replace(/\D/g, '');
-            number = number.trim();
-            number = parseInt(number);
             return memo + number;
         }, 0);
 
         var employeesCount = _.reduce(features, function (memo, feature) {
             var number = feature.properties.headcount;
-            if (!number) {
-                number = "0";
-            }
-
-            number = number.replace(/\D/g, '');
-            number = number.trim();
-
-            number = parseInt(number);
             return memo + number;
         }, 0);
 
         var fundingSum = _.reduce(features, function (memo, feature) {
             var number = feature.properties.fundingraised;
-            if (!number) {
-                number = "0";
-            }
-            if (number.indexOf('-') > 0) {
-                number = number.split('-');
-                number = number[0].trim()
-            }
-            number = number.replace(/\D/g, '');
-            number = number.trim();
-
-            number = parseInt(number);
             return memo + number;
         }, 0);
 
