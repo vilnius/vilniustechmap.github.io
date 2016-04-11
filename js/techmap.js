@@ -107,6 +107,11 @@ techMapApp.controller('TechMapSideMenuController', function ($scope, $rootScope)
         }
         $scope.$apply();
     });
+    
+    $scope.$on('ClickedOnMap', function (event, feature) {
+        $scope.selectedObject = null;
+        $scope.$apply();
+    });
 });
 
 techMapApp.controller('TechMapStartUpOfTheDayController', function ($scope, $rootScope) {

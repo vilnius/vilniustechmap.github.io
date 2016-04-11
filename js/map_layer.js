@@ -58,6 +58,9 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
             "type": "FeatureCollection",
             "features": features
         };
+        
+        var selectedMarker = null;
+        var iconToDeselect = null;
 
         var geoJsonLayer = L.geoJson(data, {
             style: function (feature) {
@@ -105,6 +108,8 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
                     marker.selected = !marker.selected;
                     $rootScope.$broadcast('MarkerSelectedEvent', feature);
                     if (marker.selected) {
+                        selectedMarker = marker;
+                        iconToDeselect = awesomeMarker;
                         marker.setIcon(awesomeMarkeSelected);
                     } else {
                         marker.setIcon(awesomeMarker);
@@ -117,6 +122,14 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
 
         markers.addLayer(geoJsonLayer);
         map.addLayer(markers);
+        
+        map.on('click', function() {
+            $rootScope.$broadcast('ClickedOnMap', null);
+            if (selectedMarker) {
+                selectedMarker.selected = false;
+                selectedMarker.setIcon(iconToDeselect);
+            }
+        });
     });
 });
 
