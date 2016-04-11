@@ -69,45 +69,16 @@ techMapApp.controller('TechMapSummaryController', function ($scope, $rootScope, 
 
         var revenuesSum = _.reduce(features, function (memo, feature) {
             var number = feature.properties.revenues;
-            if (!number) {
-                number = "0";
-            }
-            if (number.indexOf('-') > 0) {
-                number = number.split('-');
-                number = number[0].trim()
-            }
-            number = number.replace(/\D/g, '');
-            number = number.trim();
-            number = parseInt(number);
             return memo + number;
         }, 0);
 
         var employeesCount = _.reduce(features, function (memo, feature) {
             var number = feature.properties.headcount;
-            if (!number) {
-                number = "0";
-            }
-
-            number = number.replace(/\D/g, '');
-            number = number.trim();
-
-            number = parseInt(number);
             return memo + number;
         }, 0);
 
         var fundingSum = _.reduce(features, function (memo, feature) {
             var number = feature.properties.fundingraised;
-            if (!number) {
-                number = "0";
-            }
-            if (number.indexOf('-') > 0) {
-                number = number.split('-');
-                number = number[0].trim()
-            }
-            number = number.replace(/\D/g, '');
-            number = number.trim();
-
-            number = parseInt(number);
             return memo + number;
         }, 0);
 
@@ -135,6 +106,22 @@ techMapApp.controller('TechMapSideMenuController', function ($scope, $rootScope)
             $scope.selectedObject = feature.properties;
         }
         $scope.$apply();
+    });
+    
+    $scope.$on('ClickedOnMap', function (event, feature) {
+        $scope.selectedObject = null;
+        $scope.$apply();
+    });
+});
+
+techMapApp.controller('TechMapStartUpOfTheDayController', function ($scope, $rootScope) {
+    $scope.$on('DataAvailable', function (event, features) {
+        var startupAmount = features.length;
+        var currentDate = new Date();
+        var randomIndex = currentDate.getMonth() + currentDate.getDate() + currentDate.getFullYear();
+        while (randomIndex >= startupAmount)
+            randomIndex -= startupAmount;
+        $scope.startUpOfTheDayObject = features[randomIndex].properties;
     });
 });
 

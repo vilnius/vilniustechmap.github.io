@@ -78,13 +78,17 @@
     </div>
   </div>
 </div>
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> gh-pages
     <div id="layout">
 
         <div id="menu" ng-controller="TechMapSideMenuController">
             <div ng-show="!selectedObject" ng-controller="TechMapFilterController" ng-cloak>
                 <form class="company-filter">
-                    <div class="form-group form-group-lg">
+                    <div class="form-group ">
                         <label for="category" class="control-label">Category filter</label>
                         <select class="form-control" name="category" id="category" ng-model="filter.category">
                             <option value=""></option>
@@ -141,7 +145,17 @@
                     <ul class="object-data">
                         <li ng-show="selectedObject.revenues">
                             <label>Revenues</label>
-                            <p>{{selectedObject.revenues}}</p>
+                            <p class="currency-euros">{{selectedObject.revenues | number}}</p>
+                        </li>
+                        
+                        <li ng-show="selectedObject.headcount">
+                            <label>Employees</label>
+                            <p>{{selectedObject.headcount}}</p>
+                        </li>
+                        
+                        <li ng-show="selectedObject.fundingraised">
+                            <label>Funding raised</label>
+                            <p class="currency-euros">{{selectedObject.fundingraised | number}}</p>
                         </li>
                     </ul>
                 </div>
@@ -159,6 +173,7 @@
     <script src="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.4.7/angular-locale_lt-lt.min.js"></script>
 
 
     <script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>

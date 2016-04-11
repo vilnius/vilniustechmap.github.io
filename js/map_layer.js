@@ -1,6 +1,7 @@
 techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
-
-    var mapBoxTile = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6IjZjNmRjNzk3ZmE2MTcwOTEwMGY0MzU3YjUzOWFmNWZhIn0.Y8bhBaUMqFiPrDRW9hieoQ', {
+    var mapBoxApiKey = 'pk.eyJ1IjoidGFzdWJvIiwiYSI6ImNpazZ0NG9hdzAwNTZ4YW0xaTdheGRlZjUifQ.d6fPkeFArHt8hivdkF4vEQ';
+    
+    var mapBoxTile = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=' + mapBoxApiKey, {
         maxZoom: 18,
         attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
         '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -22,8 +23,8 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
     var center = L.latLng(54.68547, 25.28739);
     var map = L.map('map', {
         center: center, zoom: 12, layers: [
-               openStreetMapTile,
-            // mapBoxTile,
+            //    openStreetMapTile,
+            mapBoxTile,
             //            cloudMatTile,
         ]
     });
@@ -57,6 +58,9 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
             "type": "FeatureCollection",
             "features": features
         };
+        
+        var selectedMarker = null;
+        var iconToDeselect = null;
 
         var geoJsonLayer = L.geoJson(data, {
             style: function (feature) {
@@ -104,6 +108,8 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
                     marker.selected = !marker.selected;
                     $rootScope.$broadcast('MarkerSelectedEvent', feature);
                     if (marker.selected) {
+                        selectedMarker = marker;
+                        iconToDeselect = awesomeMarker;
                         marker.setIcon(awesomeMarkeSelected);
                     } else {
                         marker.setIcon(awesomeMarker);
@@ -116,6 +122,14 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
 
         markers.addLayer(geoJsonLayer);
         map.addLayer(markers);
+        
+        map.on('click', function() {
+            $rootScope.$broadcast('ClickedOnMap', null);
+            if (selectedMarker) {
+                selectedMarker.selected = false;
+                selectedMarker.setIcon(iconToDeselect);
+            }
+        });
     });
 });
 

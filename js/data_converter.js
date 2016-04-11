@@ -27,10 +27,72 @@ function convertDataFromGoogleSpreadsheetsJson(data) {
         props['longitude'] = parseFloat(props['longitude'].replace(",", "."));
         props['latitude'] = parseFloat(props['latitude'].replace(",", "."));
         
+<<<<<<< HEAD
         if (props['website'].search("http") == -1)
 		{
 		  props['website'] = "http://" + props['website'];	
 		}
+=======
+        if (props['website'].search("http") == -1) {
+		  props['website'] = "http://" + props['website'];	
+		}
+        
+        function fixFundingRaised() {
+            var number = props['fundingraised'];
+            if (!number) {
+                number = "0";
+            }
+            
+            if (number.indexOf('-') > 0) {
+                number = number.split('-');
+                number = number[0].trim()
+            }
+            
+            number = number.replace(/\D/g, '');
+            number = number.trim();
+
+            number = parseInt(number);
+            
+            return number;
+        }
+        
+        function fixEmployeeCount() {
+            var number = props['headcount'];
+            
+            if (!number) {
+                number = "0";
+            }
+
+            number = number.replace(/\D/g, '');
+            number = number.trim();
+
+            number = parseInt(number);
+            
+            return number;
+        }
+        
+        function fixRevenues() {
+            var number = props['revenues'];
+            
+            if (!number) {
+                number = "0";
+            }
+            if (number.indexOf('-') > 0) {
+                number = number.split('-');
+                number = number[0].trim()
+            }
+            number = number.replace(/\D/g, '');
+            number = number.trim();
+            number = parseInt(number);
+            
+            return number;
+        }
+        
+        props['fundingraised'] = fixFundingRaised();
+        props['headcount'] = fixEmployeeCount();
+        props['revenues'] = fixRevenues();
+        
+>>>>>>> gh-pages
 
         return {
             "type": "Feature",

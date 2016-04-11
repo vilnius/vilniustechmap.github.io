@@ -1,6 +1,3 @@
----
----
-
 $blue: #38a9db;
 
 html, body {
@@ -26,6 +23,10 @@ a {
     height: 100%;
 }
 
+.currency-euros::before {
+    content:"€";
+}
+            
 #menu {
     float: left;
     width: 300px;
