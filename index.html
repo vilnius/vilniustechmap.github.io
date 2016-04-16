@@ -80,8 +80,12 @@
     </div>
     <div id="layout">
         <ul class="side-menu nav nav-stacked col-sm-1">
-            <li class="active"><a href="#mapsummary" data-toggle="tab"><i class="fa fa-map-marker fa-3x" aria-hidden="true"></i></a></li>
-            <li><a href="#about" data-toggle="tab"><i class="fa fa-question fa-3x" aria-hidden="true"></i></a></li>
+            <li class="active"><a href="#mapsummary" data-toggle="tab" title="Map"><i class="fa fa-map-marker fa-3x" aria-hidden="true"></i></a></li>
+            <li><a href="#about" data-toggle="tab" title="About us"><i class="fa fa-question fa-3x" aria-hidden="true"></i></a></li>
+
+            <li class="add-company">
+                <a title="Add company" target="_blank" href="http://www.google.com" rel="nofollow"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+            </li>
         </ul>
 
         <div id="menu" ng-controller="TechMapSideMenuController">

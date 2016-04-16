@@ -31,6 +31,13 @@ a {
     .active a {
         color: #9ED770 !important; 
     }
+    
+    .add-company {
+        position: fixed;
+        bottom: 0;
+        padding-left: 10px;
+        padding-bottom: 10px;
+    }
 }
 
 .about-us {
