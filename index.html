@@ -7,6 +7,12 @@
     <title>TechMap Vilnius</title>
     <meta name="description" content="Tech Map of Vilnius">
 
+    <meta property="og:title" content="Techmap Vilnius" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://techmap.vilnius.lt/" />
+    <meta property="og:image" content="http://techmap.vilnius.lt/img/vilnius-techmap-ss.png" />
+    <meta property="og:description" content="Techmap for Vilnius -- created at Code4Vilnius" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
@@ -136,6 +142,19 @@
                                 <h4 class="summary-label">Funding raised</h4>
                                 <h1 class="summary-number summary-number-currency">{{summary.funding}}</h1>
                             </div>
+
+
+                            <div class="sharing-buttons">
+                                <span class='st_facebook_large' displayText='Facebook'></span>
+                                <span class='st_twitter_large' displayText='Tweet'></span>
+                                <span class='st_googleplus_large' displayText='Google +'></span>
+
+
+                                <script type="text/javascript" src="//w.sharethis.com/button/buttons.js"></script>
+                                <script type="text/javascript">
+                                    stLight.options({publisher: "a9c4af36-ef73-4ebf-ab00-dfb237d0d7a9", doNotHash: false, doNotCopy: false, hashAddressBar: false});
+                                </script>
+                            </div>
                         </div>
                     </div>
                     <div ng-show="selectedObject" ng-cloak>
@@ -192,7 +211,7 @@
             </div>
 
         </div>
-        
+
         <div id="map" ng-controller="TechMapLayerController"></div>
 
         <div id="partners">
@@ -246,6 +265,7 @@
       ga('create', 'UA-76347578-1', 'auto');
       ga('send', 'pageview');
     </script>
+
 
 </body>
 

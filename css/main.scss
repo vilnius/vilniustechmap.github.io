@@ -11,6 +11,10 @@ html, body {
     font-family: "Roboto", sans-serif !important;
 }
 
+body {
+    overflow: hidden;
+}
+
 a {
     color: $blue !important;
 }
@@ -76,6 +80,13 @@ a {
     
     .subtitle {
         padding: 0 20px;
+    }
+    
+    .sharing-buttons {
+        bottom: 0;
+        text-align: center;
+        margin-top: 40px;
+        width: 100%;
     }
 
     .picture-container {
