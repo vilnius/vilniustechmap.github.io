@@ -2,6 +2,7 @@
 ---
 
 $blue: #38a9db;
+// https://color.adobe.com/library/d5df46d3-7a94-4bff-93c0-5f90e08ca94c/theme/53a9a2ca-ba9c-4fca-9854-7dd72d3851f0/
 
 html, body {
     height: 100%;
@@ -20,6 +21,20 @@ a {
 
 #layout {
     height: 100%;
+}
+
+#layout .side-menu {
+    max-width: 70px;
+    padding: 10px 0 0 0 ;
+    text-align: center;
+    
+    .active a {
+        color: #9ED770 !important; 
+    }
+}
+
+.about-us {
+    padding: 10px 10px 10px 20px;
 }
 
 #map {
