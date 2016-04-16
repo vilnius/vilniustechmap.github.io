@@ -48,6 +48,19 @@ a {
     height: 100%;
 }
 
+#partners {
+    height: 40px;  
+    margin-top: -40px;
+    position: relative;
+    background-color:rgba(0,0,0,0.2);
+    margin-left: 370px;
+    padding: 10px;
+    
+    img {
+        max-width: 120px;
+    }
+}
+
 .currency-euros::before {
     content:"€";
 }
