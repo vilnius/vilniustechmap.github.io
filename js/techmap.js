@@ -115,7 +115,8 @@ techMapApp.controller('TechMapFilterController', function ($scope, $rootScope) {
 techMapApp.controller('TechMapSummaryController', function ($scope, $rootScope, $timeout) {
 
     $scope.$on('EntrySetAvailable', function (event, features) {
-
+        var companyCount = features.length;
+        
         var revenuesSum = _.reduce(features, function (memo, feature) {
             var number = feature.properties.revenues;
             return memo + number;
@@ -139,6 +140,7 @@ techMapApp.controller('TechMapSummaryController', function ($scope, $rootScope, 
             revenues: revenuesSum,
             employees: employeesCount,
             funding: fundingSum,
+            companyCount: companyCount,
         };
         $timeout(function () {
             $scope.$apply();
