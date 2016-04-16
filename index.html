@@ -83,8 +83,17 @@
         <div id="menu" ng-controller="TechMapSideMenuController">
             <div ng-show="!selectedObject" ng-controller="TechMapFilterController" ng-cloak>
                 <form class="company-filter">
+                    
                     <div class="form-group ">
-                        <label for="category" class="control-label">Category filter</label>
+                        <label for="companytype" class="control-label">Type</label>
+                        <select class="form-control" name="companytype" id="companytype" ng-model="filter.type">
+                            <option value=""></option>
+                            <option ng-repeat="option in types" value="{{option.name}}">{{option.name}}</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group ">
+                        <label for="category" class="control-label">Category</label>
                         <select class="form-control" name="category" id="category" ng-model="filter.category">
                             <option value=""></option>
                             <option ng-repeat="option in categories" value="{{option.name}}">{{option.name}}</option>

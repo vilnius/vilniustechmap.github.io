@@ -85,6 +85,10 @@ function convertDataFromGoogleSpreadsheetsJson(data) {
         props['fundingraised'] = fixFundingRaised();
         props['headcount'] = fixEmployeeCount();
         props['revenues'] = fixRevenues();
+        
+        if (!props['typetechcompanyofficeproviderfund']) {
+            props['typetechcompanyofficeproviderfund'] = "";
+        }
 
         return {
             "type": "Feature",
@@ -107,6 +111,7 @@ function convertDataFromGoogleSpreadsheetsJson(data) {
                 "headcount": props['headcount'],
                 "fundingraised": props['fundingraised'],
                 "industrycategorytype": props['industrycategorytype'],
+                "typetechcompanyofficeproviderfund": props['typetechcompanyofficeproviderfund'],
                 "color": "blue",
                 "icon": "building"
             }
