@@ -54,10 +54,13 @@ a {
     position: relative;
     background-color:rgba(0,0,0,0.2);
     margin-left: 370px;
-    padding: 10px;
+    padding: 7px 20px;
     
     img {
         max-width: 120px;
+        max-height: 25px;
+        margin-left: 5px;
+        margin-right: 5px;
     }
 }
 
