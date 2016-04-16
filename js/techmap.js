@@ -167,22 +167,19 @@ techMapApp.controller('TechMapSideMenuController', function ($scope, $rootScope)
 
 techMapApp.controller('TechMapStartUpOfTheDayController', function ($scope, $rootScope) {
     $scope.$on('DataAvailable', function (event, features) {
-        var startupAmount = features.length;
-        var currentDate = new Date();
-        var randomIndex = currentDate.getMonth() + currentDate.getDate() + currentDate.getFullYear();
-        while (randomIndex >= startupAmount)
-            randomIndex -= startupAmount;
-        $scope.startUpOfTheDayObject = features[randomIndex].properties;
-    });
-});
-
-techMapApp.controller('TechMapStartUpOfTheDayController', function ($scope, $rootScope) {
-    $scope.$on('DataAvailable', function (event, features) {
-        var startupAmount = features.length;
-        var currentDate = new Date();
-        var randomIndex = currentDate.getMonth() + currentDate.getDate() + currentDate.getFullYear();
-        while (randomIndex >= startupAmount)
-            randomIndex -= startupAmount;
-        $scope.startUpOfTheDayObject = features[randomIndex].properties;
+        // var startupAmount = features.length;
+        // var currentDate = new Date();
+        // var randomIndex = currentDate.getMonth() + currentDate.getDate() + currentDate.getFullYear();
+        // while (randomIndex >= startupAmount)
+        //     randomIndex -= startupAmount;
+        // $scope.startUpOfTheDayObject = features[randomIndex].properties;
+        
+        var found = _.filter(features, function(feature) {
+            return feature.properties.title == 'Feedpresso';
+        })
+        
+        var company = _.first(found);
+        
+        $scope.startUpOfTheDayObject = company.properties;
     });
 });
