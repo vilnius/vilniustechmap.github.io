@@ -2,176 +2,201 @@
 ---
 
 $blue: #38a9db;
+$menuwidth: 400px;
 // https://color.adobe.com/library/d5df46d3-7a94-4bff-93c0-5f90e08ca94c/theme/53a9a2ca-ba9c-4fca-9854-7dd72d3851f0/
 
 html, body {
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-    font-family: "Roboto", sans-serif !important;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  font-family: "Roboto", sans-serif !important;
 }
 
 body {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 a {
-    color: $blue !important;
+  color: $blue !important;
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
-    display: none !important;
+  display: none !important;
 }
 
 #layout {
-    height: 100%;
+  height: 100%;
 }
 
 #layout .side-menu {
-    max-width: 70px;
-    padding: 10px 0 0 0 ;
-    text-align: center;
-    
-    .active a {
-        color: #9ED770 !important; 
-    }
-    
-    .add-company {
-        position: fixed;
-        bottom: 0;
-        padding-left: 10px;
-        padding-bottom: 10px;
-    }
+  max-width: 70px;
+  padding: 10px 0 0 0;
+  text-align: center;
+
+  .active a {
+    color: #9ED770 !important;
+  }
+
+  .add-company {
+    position: fixed;
+    bottom: 0;
+    padding-left: 10px;
+    padding-bottom: 10px;
+  }
 }
 
 .about-us {
-    padding: 10px 10px 10px 20px;
+  padding: 10px 10px 10px 20px;
+
+  font-size: 16px;
+
+  .row {
+    text-align: center;
+  }
+
+  .team-member {
+    margin: 10px;
+    height: 220px;
+    width: 33%;
+    display: inline-block;
+    text-align: center;
+
+    img {
+      max-width: 100%;
+    }
+  }
+
+  .text-part {
+    margin-bottom: 1em;
+  }
 }
 
 #map {
-    height: 100%;
+  height: 100%;
 }
 
 #partners {
-    height: 40px;  
-    margin-top: -40px;
-    position: relative;
-    background-color:rgba(0,0,0,0.2);
-    margin-left: 370px;
-    padding: 7px 20px;
-    
-    img {
-        max-width: 120px;
-        max-height: 25px;
-        margin-left: 5px;
-        margin-right: 5px;
-    }
+  height: 40px;
+  margin-top: -40px;
+  position: relative;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-left: $menuwidth + 70px;
+  padding: 7px 20px;
+
+  img {
+    max-width: 120px;
+    max-height: 25px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 }
 
 .currency-euros::before {
-    content:"€";
+  content: "€";
 }
-            
+
 #menu {
-    float: left;
-    width: 300px;
-    height: 100%;
-    background-color: #f8f8f8;
-    
-    .subtitle {
-        padding: 0 20px;
+  float: left;
+  width: $menuwidth;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background-color: #f8f8f8;
+
+  .subtitle {
+    padding: 0 20px;
+  }
+
+  .sharing-buttons {
+    bottom: 0;
+    text-align: center;
+    margin-top: 40px;
+    width: 100%;
+  }
+
+  .picture-container {
+    background-color: #fff;
+    text-align: center;
+    padding: 20px;
+    padding-bottom: 20px;
+
+    img {
+      max-height: 100px;
+      width: auto;
+      max-width: 100%;
     }
-    
-    .sharing-buttons {
-        bottom: 0;
-        text-align: center;
-        margin-top: 40px;
-        width: 100%;
+  }
+
+  .company-filter {
+    padding: 20px 20px;
+  }
+
+  .summary-box {
+    padding: 20px 20px;
+    .summary-entry {
+      padding-bottom: 20px;
+      .summary-label {
+        color: grey;
+      }
+
+      .summary-number {
+        padding-left: 40px;
+        font-weight: bold;
+
+      }
+      .summary-number-currency::before {
+        content: "€";
+      }
+    }
+  }
+
+  .data-container {
+    h1 {
+      font-weight: 100;
+      font-size: 24px;
+      padding: 0 20px;
+      margin-bottom: 2px;
+      color: $blue;
     }
 
-    .picture-container {
-        background-color: #fff;
-        text-align: center;
-        padding: 20px;
-        padding-bottom: 20px;
-        
-        img {
-            max-height: 100px;
-            width: auto;
-            max-width: 100%;
-        }
+    p.address {
+      margin: 0;
+      color: #888;
+      padding: 20px;
+      padding-top: 0;
+
+      i.fa {
+        margin-right: 3px;
+      }
     }
-    
-    .company-filter {
-        padding: 20px 20px;
+
+    ul.object-data {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      border-top: 1px solid #e5e5e5;
+      padding: 15px 20px;
+
+      li {
+        margin: 5px 0;
+
+        i.fa {
+          margin-right: 10px;
+          color: #555;
+        }
+
+        label {
+          color: $blue;
+        }
+      }
     }
-    
-    .summary-box {
-        padding: 20px 20px;
-        .summary-entry {
-            padding-bottom: 20px;
-            .summary-label {
-                color: grey;
-            }
-            
-            .summary-number {
-                padding-left: 40px;
-                font-weight: bold;
-                
-            }
-            .summary-number-currency::before {
-                content:"€";
-            }
-        }
-    }
-    
-    .data-container {
-        h1 {
-            font-weight: 100;
-            font-size: 24px;
-            padding: 0 20px;
-            margin-bottom: 2px;
-            color: $blue;
-        }
-        
-        p.address {
-            margin: 0;
-            color: #888;
-            padding: 20px;
-            padding-top: 0;
-            
-            i.fa {
-                margin-right: 3px;
-            }
-        }
-        
-        ul.object-data {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            border-top: 1px solid #e5e5e5;
-            padding: 15px 20px;
-            
-            li {
-                margin: 5px 0;
-                
-                i.fa {
-                    margin-right: 10px;
-                    color: #555;
-                }
-                
-                label {
-                    color: $blue;
-                }
-            }
-        }
-    }
+  }
 }
 
-#myModal.modeless{
-    top:2%;
-    left:auto;
-    bottom:auto;
-    right:2%;
-    margin-left:-300px;
+#myModal.modeless {
+  top: 2%;
+  left: auto;
+  bottom: auto;
+  right: 2%;
+  margin-left: -$menuwidth;
 }

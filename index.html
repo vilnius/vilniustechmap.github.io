@@ -7,20 +7,20 @@
     <title>TechMap Vilnius</title>
     <meta name="description" content="Tech Map of Vilnius">
 
-    <meta property="og:title" content="Techmap Vilnius" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://techmap.vilnius.lt/" />
-    <meta property="og:image" content="http://techmap.vilnius.lt/img/vilnius-techmap-ss.png" />
-    <meta property="og:description" content="Techmap for Vilnius -- created at Code4Vilnius" />
+    <meta property="og:title" content="Techmap Vilnius"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="http://techmap.vilnius.lt/"/>
+    <meta property="og:image" content="http://techmap.vilnius.lt/img/vilnius-techmap-ss.png"/>
+    <meta property="og:description" content="Techmap for Vilnius -- created at Code4Vilnius"/>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-    <link rel="stylesheet" href="libs/leaflet.css" />
-    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="libs/leaflet.css"/>
+    <link rel="stylesheet" href="css/main.css"/>
 
-    <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.css" />
-    <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.css"/>
+    <link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css"/>
 
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
     <link rel="stylesheet" href="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.css">
@@ -28,10 +28,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+          integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ=="
+          crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:400,300,700" />
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:400,300,700"/>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
@@ -42,238 +43,348 @@
 
 <body ng-controller="TechMapController">
 
-    <div class="modal show modeless" id="myModal" ng-controller="TechMapStartUpOfTheDayController" data-backdrop="false" tabindex="-1"
-        role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" onclick="HydeContent()" class="close">^</button>
-                    <h4 class="modal-title" id="myModalLabel">StartUp of the day!</h4>
-                </div>
-                <div class="modal-body">
-                    <div ng-show="startUpOfTheDayObject" ng-cloak>
-                        <div class="picture-container">
-                            <img class="main-picture" ng-src="{{startUpOfTheDayObject.pictureUrl}}">
-                        </div>
-                        <div class="data-container">
-                            <h1>{{startUpOfTheDayObject.title}}</h1>
-                            <p class="address"><i class="fa fa-location-arrow"></i> {{startUpOfTheDayObject.address}}</p>
-                            <ul class="object-data">
-                                <li>
-                                    <i class="fa fa-user"></i> {{startUpOfTheDayObject.contactPerson}}
-                                </li>
-                                <li ng-show="selectedObject.contactPhone">
-                                    <i class="fa fa-phone"></i> {{startUpOfTheDayObject.contactPhone}}
-                                </li>
-                                <li>
-                                    <i class="fa fa-envelope"></i> <a href="mailto:{{startUpOfTheDayObject.contactEmail}}">{{startUpOfTheDayObject.contactEmail}}</a>
-                                </li>
-                                <li>
-                                    <i class="fa fa-link"></i> <a href="{{startUpOfTheDayObject.websiteUrl+ '?utm_source=vilniustechmap&utm_medium=startupoftheday&utm_campaign=techmap'}}"
-                                        target="_blank">{{startUpOfTheDayObject.websiteUrl}}</a>
-                                </li>
-                            </ul>
-                            <ul class="object-data">
-                                <li ng-show="startUpOfTheDayObject.revenues">
-                                    <label>Revenues</label>
-                                    <p>{{startUpOfTheDayObject.revenues}}</p>
-                                </li>
-                            </ul>
-                        </div>
+<div class="modal show modeless" id="myModal" ng-controller="TechMapStartUpOfTheDayController" data-backdrop="false"
+     tabindex="-1"
+     role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" onclick="HydeContent()" class="close">^</button>
+                <h4 class="modal-title" id="myModalLabel">StartUp of the day!</h4>
+            </div>
+            <div class="modal-body">
+                <div ng-show="startUpOfTheDayObject" ng-cloak>
+                    <div class="picture-container">
+                        <img class="main-picture" ng-src="{{startUpOfTheDayObject.pictureUrl}}">
+                    </div>
+                    <div class="data-container">
+                        <h1>{{startUpOfTheDayObject.title}}</h1>
+                        <p class="address"><i class="fa fa-location-arrow"></i> {{startUpOfTheDayObject.address}}</p>
+                        <ul class="object-data">
+                            <li>
+                                <i class="fa fa-user"></i> {{startUpOfTheDayObject.contactPerson}}
+                            </li>
+                            <li ng-show="selectedObject.contactPhone">
+                                <i class="fa fa-phone"></i> {{startUpOfTheDayObject.contactPhone}}
+                            </li>
+                            <li>
+                                <i class="fa fa-envelope"></i> <a href="mailto:{{startUpOfTheDayObject.contactEmail}}">{{startUpOfTheDayObject.contactEmail}}</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-link"></i> <a
+                                    href="{{startUpOfTheDayObject.websiteUrl+ '?utm_source=vilniustechmap&utm_medium=startupoftheday&utm_campaign=techmap'}}"
+                                    target="_blank">{{startUpOfTheDayObject.websiteUrl}}</a>
+                            </li>
+                        </ul>
+                        <ul class="object-data">
+                            <li ng-show="startUpOfTheDayObject.revenues">
+                                <label>Revenues</label>
+                                <p>{{startUpOfTheDayObject.revenues}}</p>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div id="layout">
-        <ul class="side-menu nav nav-stacked col-sm-1">
-            <li class="active"><a href="#mapsummary" data-toggle="tab" title="Map"><i class="fa fa-map-marker fa-3x" aria-hidden="true"></i></a></li>
-            <li><a href="#about" data-toggle="tab" title="About us"><i class="fa fa-question fa-3x" aria-hidden="true"></i></a></li>
+</div>
+<div id="layout">
+    <ul class="side-menu nav nav-stacked col-sm-1">
+        <li class="active"><a href="#mapsummary" data-toggle="tab" title="Map"><i class="fa fa-map-marker fa-3x"
+                                                                                  aria-hidden="true"></i></a></li>
+        <li><a href="#about" data-toggle="tab" title="About us"><i class="fa fa-question fa-3x" aria-hidden="true"></i></a>
+        </li>
 
-            <li class="add-company">
-                <a title="Add company" target="_blank" href="http://goo.gl/forms/Jb1HE2beMH" rel="nofollow"><i class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+        <li class="add-company">
+            <a title="Add company" target="_blank" href="http://goo.gl/forms/Jb1HE2beMH" rel="nofollow"><i
+                    class="fa fa-plus fa-2x" aria-hidden="true"></i></a>
+        </li>
+    </ul>
+
+    <div id="menu" ng-controller="TechMapSideMenuController">
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active fade in" id="mapsummary">
+                <div ng-show="!selectedObject" ng-controller="TechMapFilterController" ng-cloak>
+                    <form class="company-filter">
+
+                        <div class="form-group ">
+                            <label for="companytype" class="control-label">Type</label>
+                            <select class="form-control" name="companytype" id="companytype" ng-model="filter.type">
+                                <option value=""></option>
+                                <option ng-repeat="option in types" value="{{option.name}}">{{option.name}}</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group ">
+                            <label for="category" class="control-label">Category</label>
+                            <select class="form-control" name="category" id="category" ng-model="filter.category">
+                                <option value=""></option>
+                                <option ng-repeat="option in categories" value="{{option.name}}">{{option.name}}
+                                </option>
+                            </select>
+                        </div>
+
+                    </form>
+                </div>
+                <div ng-show="!selectedObject" ng-controller="TechMapSummaryController">
+                    <h1 class="text-center main-title"><i class="fa fa-map-o"></i> TechMap Vilnius</h1>
+
+                    <small class="subtitle">Choose object on the map to start!</small>
+
+                    <div class="summary-box" ng-cloak>
+                        <div class="summary-entry">
+                            <h4 class="summary-label">Company count</h4>
+                            <h1 class="summary-number">{{summary.companyCount}}</h1>
+                        </div>
+
+                        <div class="summary-entry">
+                            <h4 class="summary-label">Revenues</h4>
+                            <h1 class="summary-number summary-number-currency">{{summary.revenues}}</h1>
+                        </div>
+                        <div class="summary-entry">
+                            <h4 class="summary-label">Employees</h4>
+                            <h1 class="summary-number">{{summary.employees}}</h1>
+                        </div>
+                        <div class="summary-entry">
+                            <h4 class="summary-label">Funding raised</h4>
+                            <h1 class="summary-number summary-number-currency">{{summary.funding}}</h1>
+                        </div>
+
+
+                        <div class="sharing-buttons">
+                            <span class='st_facebook_large' displayText='Facebook'></span>
+                            <span class='st_twitter_large' displayText='Tweet'></span>
+                            <span class='st_googleplus_large' displayText='Google +'></span>
+
+
+                            <script type="text/javascript" src="//w.sharethis.com/button/buttons.js"></script>
+                            <script type="text/javascript">
+                                stLight.options({
+                                    publisher: "a9c4af36-ef73-4ebf-ab00-dfb237d0d7a9",
+                                    doNotHash: false,
+                                    doNotCopy: false,
+                                    hashAddressBar: false
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div ng-show="selectedObject" ng-cloak>
+                    <div class="picture-container">
+                        <img class="main-picture" ng-src="{{selectedObject.pictureUrl}}">
+                    </div>
+
+                    <div class="data-container">
+                        <h1>{{selectedObject.title}}</h1>
+                        <p class="address"><i class="fa fa-location-arrow"></i> {{selectedObject.address}}</p>
+
+                        <ul class="object-data">
+                            <li>
+                                <i class="fa fa-user"></i> {{selectedObject.contactPerson}}
+                            </li>
+                            <li>
+                                <i class="fa fa-phone"></i> {{selectedObject.contactPhone}}
+                            </li>
+                            <li>
+                                <i class="fa fa-envelope"></i> <a href="mailto:{{selectedObject.contactEmail}}">{{selectedObject.contactEmail}}</a>
+                            </li>
+                            <li>
+                                <i class="fa fa-link"></i> <a href="{{selectedObject.websiteUrl}}" target="_blank">{{selectedObject.websiteUrl}}</a>
+                            </li>
+                        </ul>
+
+                        <ul class="object-data">
+                            <li ng-show="selectedObject.revenues">
+                                <label>Revenues</label>
+                                <p class="currency-euros">{{selectedObject.revenues | number}}</p>
+                            </li>
+
+                            <li ng-show="selectedObject.headcount">
+                                <label>Employees</label>
+                                <p>{{selectedObject.headcount}}</p>
+                            </li>
+
+                            <li ng-show="selectedObject.fundingraised">
+                                <label>Funding raised</label>
+                                <p class="currency-euros">{{selectedObject.fundingraised | number}}</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div role="tabpanel" class="tab-pane fade " id="about">
+                <div class="about-us">
+                    <h2 class="text-center">Techmap team</h2>
+
+                    <div class="row">
+                        <div class="team-member">
+                            <a href="https://www.linkedin.com/in/tadassubonis" target="_blank">
+                                <img src="img/team/tadas.jpeg" class="img-circle"/>
+                            </a>
+                            <h4 class="name">Tadas Šubonis</h4>
+                            <h6>Technical Officer</h6>
+                        </div>
+
+                        <div class="team-member">
+                            <a href="https://www.linkedin.com/in/daliuskazlauskas" target="_blank">
+                                <img src="img/team/dalius.jpg" class="img-circle"/>
+                            </a>
+                            <h4 class="name">Dalius Kazlauskas</h4>
+                            <h6>Executive Officer</h6>
+                        </div>
+
+                        <div class="team-member">
+                            <a href="https://www.linkedin.com/in/agneselemonaite" target="_blank">
+                                <img src="img/team/agne.jpg" class="img-circle"/>
+                            </a>
+                            <h4 class="name">Agnė Selemonaitė</h4>
+                            <h6>Partnerships & Marketing Officer</h6>
+                        </div>
+
+                        <div class="team-member">
+                            <a href="https://www.linkedin.com/in/maksimvashkevich" target="_blank">
+                                <img src="img/team/maksim.png" class="img-circle"/>
+                            </a>
+                            <h4 class="name">Maksim Vashkevich</h4>
+                            <h6>Branding Officer</h6>
+                        </div>
+                    </div>
+
+                    <h2 class="text-center text-part">About techmap</h2>
+
+                    <p>
+                        Vilnius Tech Map is an open source tool designed by Code4Vilnius initiative and will be
+                        administrated as a free service for tech companies by City of Vilnius, E-city department team.
+                    </p>
+
+                    <p>
+
+                        The goal of the tool is:
+                    </p>
+
+                    <ul>
+                        <li>
+                            Capture the Tech ecosystem in the city, measure status quo and growing dynamics of Vilnius
+                            Tech
+                            sector
+                        </li>
+                        <li> Help new startups find space, community, funds, partners and clients</li>
+                        <li>Help corporate technology centers find talent and solutions suppliers</li>
+                        <li>
+                            Use the tool for urban planning, i.e. making decisions on industry relevant zoning,
+                            transport,
+                            social and public space infrastructure
+                        </li>
+                        <li>Work as a marketing platform for co-working space providers to showcase their competence
+                            hubs
+                        </li>
+                    </ul>
+
+
+                    <p>
+                        The key information about companies is sourced from number of public and private partners and
+                        will
+                        be further continuously updated through national registry centre and crowdsourced from the
+                        users.
+                    </p>
+                    <p>
+                        Our partners include:
+                    </p>
+                    <ul>
+                        <li><a href="http://www.startuplithuania.lt/" target="_blank">StartupLithuania</a></li>
+                        <li><a href="http://www.investlithuania.com/" target="_blank">Invest Lithuania</a></li>
+                        <li><a href="http://vca.lt/en/" target="_blank"> Lithuanian Private Equity and Venture Capital
+                            Association</a></li>
+                        <li><a href="http://www.bznstart.lt/" target="_blank">Bzn Start</a></li>
+                    </ul>
+
+                    <p>
+                        Contributors:
+                    </p>
+
+                    <ul>
+                        <li><a href="http://www.feedpresso.com/" target="_blank">Feedpresso</a></li>
+                        <li><a href="http://www.neueunica.com/about/" target="_blank">Neue Unica</a></li>
+                        <li><a href="http://webrobots.io/" target="_blank">WeRobots</a></li>
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="map" ng-controller="TechMapLayerController"></div>
+
+    <div id="partners">
+        <ul class="list-inline">
+            <li>
+                <img src="/img/vilnius.png"/>
+            </li>
+            <li>
+                <img src="/img/startuplithuania.png"/>
+            </li>
+            <li>
+                <img src="/img/practica_capital.png"/>
+            </li>
+            <li>
+                <img src="/img/VCA-02.png"/>
+            </li>
+            <li>
+                <img src="/img/enterprise_lithuania.png"/>
             </li>
         </ul>
-
-        <div id="menu" ng-controller="TechMapSideMenuController">
-            <div class="tab-content">
-                <div role="tabpanel" class="tab-pane active fade in" id="mapsummary">
-                    <div ng-show="!selectedObject" ng-controller="TechMapFilterController" ng-cloak>
-                        <form class="company-filter">
-
-                            <div class="form-group ">
-                                <label for="companytype" class="control-label">Type</label>
-                                <select class="form-control" name="companytype" id="companytype" ng-model="filter.type">
-                            <option value=""></option>
-                            <option ng-repeat="option in types" value="{{option.name}}">{{option.name}}</option>
-                        </select>
-                            </div>
-
-                            <div class="form-group ">
-                                <label for="category" class="control-label">Category</label>
-                                <select class="form-control" name="category" id="category" ng-model="filter.category">
-                            <option value=""></option>
-                            <option ng-repeat="option in categories" value="{{option.name}}">{{option.name}}</option>
-                        </select>
-                            </div>
-
-                        </form>
-                    </div>
-                    <div ng-show="!selectedObject" ng-controller="TechMapSummaryController">
-                        <h1 class="text-center main-title"><i class="fa fa-map-o"></i> TechMap Vilnius</h1>
-
-                        <small class="subtitle">Choose object on the map to start!</small>
-
-                        <div class="summary-box" ng-cloak>
-                            <div class="summary-entry">
-                                <h4 class="summary-label">Company count</h4>
-                                <h1 class="summary-number">{{summary.companyCount}}</h1>
-                            </div>
-
-                            <div class="summary-entry">
-                                <h4 class="summary-label">Revenues</h4>
-                                <h1 class="summary-number summary-number-currency">{{summary.revenues}}</h1>
-                            </div>
-                            <div class="summary-entry">
-                                <h4 class="summary-label">Employees</h4>
-                                <h1 class="summary-number">{{summary.employees}}</h1>
-                            </div>
-                            <div class="summary-entry">
-                                <h4 class="summary-label">Funding raised</h4>
-                                <h1 class="summary-number summary-number-currency">{{summary.funding}}</h1>
-                            </div>
-
-
-                            <div class="sharing-buttons">
-                                <span class='st_facebook_large' displayText='Facebook'></span>
-                                <span class='st_twitter_large' displayText='Tweet'></span>
-                                <span class='st_googleplus_large' displayText='Google +'></span>
-
-
-                                <script type="text/javascript" src="//w.sharethis.com/button/buttons.js"></script>
-                                <script type="text/javascript">
-                                    stLight.options({publisher: "a9c4af36-ef73-4ebf-ab00-dfb237d0d7a9", doNotHash: false, doNotCopy: false, hashAddressBar: false});
-                                </script>
-                            </div>
-                        </div>
-                    </div>
-                    <div ng-show="selectedObject" ng-cloak>
-                        <div class="picture-container">
-                            <img class="main-picture" ng-src="{{selectedObject.pictureUrl}}">
-                        </div>
-
-                        <div class="data-container">
-                            <h1>{{selectedObject.title}}</h1>
-                            <p class="address"><i class="fa fa-location-arrow"></i> {{selectedObject.address}}</p>
-
-                            <ul class="object-data">
-                                <li>
-                                    <i class="fa fa-user"></i> {{selectedObject.contactPerson}}
-                                </li>
-                                <li>
-                                    <i class="fa fa-phone"></i> {{selectedObject.contactPhone}}
-                                </li>
-                                <li>
-                                    <i class="fa fa-envelope"></i> <a href="mailto:{{selectedObject.contactEmail}}">{{selectedObject.contactEmail}}</a>
-                                </li>
-                                <li>
-                                    <i class="fa fa-link"></i> <a href="{{selectedObject.websiteUrl}}" target="_blank">{{selectedObject.websiteUrl}}</a>
-                                </li>
-                            </ul>
-
-                            <ul class="object-data">
-                                <li ng-show="selectedObject.revenues">
-                                    <label>Revenues</label>
-                                    <p class="currency-euros">{{selectedObject.revenues | number}}</p>
-                                </li>
-
-                                <li ng-show="selectedObject.headcount">
-                                    <label>Employees</label>
-                                    <p>{{selectedObject.headcount}}</p>
-                                </li>
-
-                                <li ng-show="selectedObject.fundingraised">
-                                    <label>Funding raised</label>
-                                    <p class="currency-euros">{{selectedObject.fundingraised | number}}</p>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div role="tabpanel" class="tab-pane fade " id="about">
-                    <div class="about-us">
-                        <h1>About us</h1>
-
-                        <p>Techmap was created by a bunch of tech volunteers for Vilnius</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div id="map" ng-controller="TechMapLayerController"></div>
-
-        <div id="partners">
-            <ul class="list-inline">
-                <li>
-                    <img src="/img/vilnius.png" />
-                </li>
-                <li>
-                    <img src="/img/startuplithuania.png" />
-                </li>
-                <li>
-                    <img src="/img/practica_capital.png" />
-                </li>
-                <li>
-                    <img src="/img/VCA-02.png" />
-                </li>
-                <li>
-                    <img src="/img/enterprise_lithuania.png" />
-                </li>
-            </ul>
-        </div>
     </div>
+</div>
 
 
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+        integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
         crossorigin="anonymous"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
-    <script src="libs/leaflet.js"></script>
+<script src="libs/leaflet.js"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.4.7/angular-locale_lt-lt.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-i18n/1.4.7/angular-locale_lt-lt.min.js"></script>
 
 
-    <script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
+<script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>
 
-    <script src="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
+<script src="bower_components/Leaflet.awesome-markers/dist/leaflet.awesome-markers.js"></script>
 
-    <script src="js/techmap.js"></script>
-    <script src="js/data_converter.js"></script>
-    <script src="js/map_layer.js"></script>
+<script src="js/techmap.js"></script>
+<script src="js/data_converter.js"></script>
+<script src="js/map_layer.js"></script>
 
-    <script>
-        function HydeContent() { 	
-	      var element = document.getElementsByClassName('modal-body')[0];
-	      element.style.display = (element.style.display == 'none' ? 'block' : 'none');	
-        }
-    </script>
+<script>
+    function HydeContent() {
+        var element = document.getElementsByClassName('modal-body')[0];
+        element.style.display = (element.style.display == 'none' ? 'block' : 'none');
+    }
+</script>
 
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-      ga('create', 'UA-76347578-1', 'auto');
-      ga('send', 'pageview');
-    </script>
+    ga('create', 'UA-76347578-1', 'auto');
+    ga('send', 'pageview');
+</script>
 
 
 </body>
