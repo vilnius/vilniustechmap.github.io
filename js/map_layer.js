@@ -35,7 +35,7 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
         var features = convertDataFromGoogleSpreadsheetsJson(data);
         $rootScope.$broadcast('DataAvailable', features);
 
-        console.log(features);
+        $rootScope.debug_message(features);
     });
 
     var lastMarkerSet = null;
@@ -45,7 +45,7 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
     });
 
     $rootScope.$on('EntrySetAvailable', function (event, features) {
-        console.log("New data available");
+        $rootScope.debug_message("New data available");
         
         if (lastMarkerSet != null) {
             map.removeLayer(lastMarkerSet);
@@ -67,7 +67,7 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
                 return { color: feature.properties.color };
             },
             onEachFeature: function (feature, layer) {
-                console.log(feature.properties.title);
+                $rootScope.debug_message(feature.properties.title);
                 var popupText = "";
                 if (feature.properties.color) {
                     popupText += feature.properties.title;
@@ -97,7 +97,7 @@ techMapApp.controller('TechMapLayerController', function ($scope, $rootScope) {
 
                 $rootScope.$on('MarkerSelectedEvent', function (event, featureReceived) {
                     if (feature.properties.title == featureReceived.properties.title) {
-                        console.log("Return");
+                        $rootScope.debug_message("Return");
                         return;
                     }
                     marker.selected = false;

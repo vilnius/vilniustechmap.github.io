@@ -1,4 +1,12 @@
-var techMapApp = angular.module('techMapApp', []);
+var techMapApp = angular.module('techMapApp', [])
+    .run(function($rootScope){
+        var debug = false;
+
+        // Log messages only if debugging mode is on
+        $rootScope.debug_message = function(msg){
+            if (debug) console.log(msg)
+        }
+    });
 
 techMapApp.controller('TechMapController', function ($scope) {
 
@@ -46,7 +54,7 @@ techMapApp.controller('TechMapFilterController', function ($scope, $rootScope) {
                 return category.name;
             });
 
-            console.log(_.map(foundCategories, function (category) {
+            $rootScope.debug_message(_.map(foundCategories, function (category) {
                 return category.name;
             }).join("\n"));
 
@@ -75,7 +83,7 @@ techMapApp.controller('TechMapFilterController', function ($scope, $rootScope) {
     }
 
     $scope.$watch('filter.category', function (newValue, oldValue) {
-        console.log(newValue);
+        $rootScope.debug_message(newValue);
 
         if (fullInitialFeatures == null) {
             return;
@@ -93,7 +101,7 @@ techMapApp.controller('TechMapFilterController', function ($scope, $rootScope) {
     });
     
     $scope.$watch('filter.type', function (newValue, oldValue) {
-        console.log(newValue);
+        $rootScope.debug_message(newValue);
 
         if (fullInitialFeatures == null) {
             return;
@@ -150,7 +158,7 @@ techMapApp.controller('TechMapSummaryController', function ($scope, $rootScope, 
 
 techMapApp.controller('TechMapSideMenuController', function ($scope, $rootScope) {
     $scope.$on('MarkerSelectedEvent', function (event, feature) {
-        console.log(feature);
+        $rootScope.debug_message(feature);
         if ($scope.selectedObject == feature.properties) {
             $scope.selectedObject = null;
         } else {
